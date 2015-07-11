@@ -1,6 +1,6 @@
 # http2https-node
 
-Simple [Node.js](https://nodejs.org/] based redirect and domain mapping server server.
+Simple [Node.js](https://nodejs.org/] based redirect and domain mapping server.
 
 ## Operation
 
