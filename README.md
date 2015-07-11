@@ -1,6 +1,6 @@
 # http2https-node
 
-Simple [Node.js](https://nodejs.org/] based redirect and domain mapping server.
+Simple [Node.js](https://nodejs.org/) based redirect and domain mapping server.
 
 ## Operation
 
@@ -10,9 +10,42 @@ This little server is intended to be used as a companion to a HTTPS based ecosys
 
 ### Mapping
 
-There is also a simple mapping system. The simplest supported operation is to strip `www.` hosts, transferring a request to `http://www.example.com` to `https://example.com`.
+There is also a simple mapping system. The simplest supported operation is to strip `www.` from hostnames, transferring a request to `http://www.example.com` to `https://example.com`.
 
 A little more advanced is the domain mapping table, where a requested hostname can be redirected to any other chosen hostname.
+
+### Tracking
+
+If the `SendOriginalHostAsQuery` option is enabled, the original hostname is appended to the new URL as a query string.
+
+## Getting started
+
+Grab a copy of the application from:
+
+https://github.com/StefanHamminga/http2https-node
+
+1. Install the dependencies:
+
+```sh
+git clone https://github.com/StefanHamminga/http2https-node
+cd http2https-node
+npm install
+```
+
+2. Edit `.gitignore` to exclude the configuration files from GIT
+
+3. Review the configuration files in `./config/`.
+
+
+4. Run the server
+
+```sh
+sudo node server.js
+```
+or
+```sh
+./server.js
+```
 
 ## Configuration
 
@@ -26,27 +59,32 @@ AppName: "http2https-node"
 Env: production
 
 production:
-  # IP and port combinations our application listens on. If commented out {node-default}:80 is used.
+  # IP and port combinations our application listens on. If commented out
+  # {node-default}:80 is used.
   Listen: 0.0.0.0:80
 
-  # Port to redirect to. Default action is to not include a port and let the client figure it out.
-  # Leave this unconfigured if you plan to include ports in your domain mappings!
+  # Port to redirect to. Default action is to not include a port and let the
+  # client figure it out. Leave this unconfigured if you plan to include ports
+  # in your domain mappings!
   #TargetPort: 443
 
   # 301 for permanent redirection, 302 for temporary. Defaults to 301
   #RedirectType: 302
 
-  # Should we run the request hostname through a lookup/replacement table? Defaults to false
+  # Should we run the request hostname through a lookup/replacement table?
+  # Defaults to false
   DomainMapping: true
 
-  # In case domain mapping is disabled or not applicable, should we strip `www.` from the target hostname? Defaults to false
+  # In case domain mapping is disabled or not applicable, should we strip `www.`
+  # from the target hostname? Defaults to false
   StripWWW: true
 
   # Try and send original hostname as a querystring parameter. Default: false
   SendOriginalHostAsQuery: true
   # The keyname appended
   QueryHostKey: original_hostname
-  # Try and send original hostname in a cookie (to be implemented). Default: false
+  # Try and send original hostname in a cookie (to be implemented).
+  # Default: false
   #SendOriginalHostInCookie: true
 
 development:
@@ -61,12 +99,12 @@ development:
 
 And domain mapping (`domainmapping.yaml`) is done like this:
 ```yaml
-# Simple domain mapping.                                                                                                                                            
-# Syntax:                                                                                                                                                           
-#   incoming.host.com: outgoing.host.org                                                                                                                            
-# or:                                                                                                                                                               
-#   incoming.host.com: outgoing.host.org:8443                                                                                                                       
-#                                                                                                                                                                   
+# Simple domain mapping.
+# Syntax:
+#   incoming.host.com: outgoing.host.org
+# or:
+#   incoming.host.com: outgoing.host.org:8443
+#
 # Incoming names need to be unique, outgoing can be anything within reason.
 # Adding a symmetric entry is *not* exactly the same as leaving it out. When
 # leaving out an entry the www strip filter can still apply. Any matched entry
