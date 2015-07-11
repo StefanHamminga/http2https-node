@@ -1,0 +1,17 @@
+{
+  "name": "http2https",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "description": "Simple server to redirect any incoming request to HTTPS.",
+  "author": {
+    "name": "Stefan Hamminga",
+    "email": "stefan@prjct.net"
+  },
+  "dependencies": {
+    "watch": "*",
+    "yamljs": "*"
+  }
+}

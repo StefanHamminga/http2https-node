@@ -1,0 +1,36 @@
+AppName: "http2https-node"
+# You can set any value, as long as it has an associated configuration
+Env: production
+
+production:
+  # IP and port combinations our application listens on. If commented out {node-default}:80 is used.
+  Listen: 0.0.0.0:80
+
+  # Port to redirect to. Default action is to not include a port and let the client figure it out.
+  # Leave this unconfigured if you plan to include ports in your domain mappings!
+  #TargetPort: 443
+
+  # 301 for permanent redirection, 302 for temporary. Defaults to 301
+  #RedirectType: 302
+
+  # Should we run the request hostname through a lookup/replacement table? Defaults to false
+  DomainMapping: true
+
+  # In case domain mapping is disabled or not applicable, should we strip `www.` from the target hostname? Defaults to false
+  StripWWW: true
+
+  # Try and send original hostname as a querystring parameter. Default: false
+  SendOriginalHostAsQuery: true
+  # The keyname appended
+  QueryHostKey: original_hostname
+  # Try and send original hostname in a cookie (to be implemented). Default: false
+  #SendOriginalHostInCookie: true
+
+development:
+  Listen: 0.0.0.0:80
+  TargetPort: 443
+  RedirectType: 302
+  DomainMapping: true
+  StripWWW: true
+  SendOriginalHostAsQuery: true
+  #SendOriginalHostInCookie: true

@@ -1,0 +1,18 @@
+# Simple domain mapping.
+# Syntax:
+#   incoming.host.com: outgoing.host.org
+# or:
+#   incoming.host.com: outgoing.host.org:8443
+#
+# Incoming names need to be unique, outgoing can be anything within reason.
+# Adding a symmetric entry is *not* exactly the same as leaving it out. When
+# leaving out an entry the www strip filter can still apply. Any matched entry
+# here will bypass the strip filter.
+#
+# You can also add a port (eg. example.com:8443) to the entries here, but be
+# sure to comment out any `TargetPort` setting if you do.
+
+www.example.com: example.com
+anotherexample.com: www.anotherexample.com
+domain.com: domain.com
+www.domain.com: www.domain.com
